@@ -8,7 +8,7 @@ from app.models import User
 from app.schemas.donation import (
     DonationShortDB, DonationDB, DonationCreate
 )
-from app.services.investment import donation_investment
+from app.services.investment import investment
 
 router = APIRouter()
 
@@ -48,4 +48,4 @@ async def create_donation(
         session: AsyncSession = Depends(get_async_session)
 ):
     donation = await donation_crud.create(donation, session, user)
-    return await donation_investment(donation, session)
+    return await investment(donation, session)

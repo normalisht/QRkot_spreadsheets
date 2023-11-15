@@ -11,7 +11,7 @@ from app.models import CharityProject
 from app.schemas.charity_project import (
     CharityProjectDB, CharityProjectCreate, CharityProjectUpdate
 )
-from app.services.investment import project_investment
+from app.services.investment import investment
 
 router = APIRouter()
 
@@ -37,7 +37,7 @@ async def create_project(
 ):
     await check_project_name_duplicates(project, session)
     new_project = await charity_project_crud.create(project, session)
-    return await project_investment(new_project, session)
+    return await investment(new_project, session)
 
 
 @router.delete(

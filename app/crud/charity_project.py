@@ -17,7 +17,7 @@ class CharityProjectCRUD(
 ):
 
     @staticmethod
-    async def get_current_project(session: AsyncSession) -> CharityProject:
+    async def get_unclosed_project(session: AsyncSession) -> CharityProject:
         project = await session.scalars(
             select(CharityProject).where(
                 not_(CharityProject.fully_invested)
@@ -25,7 +25,7 @@ class CharityProjectCRUD(
                 CharityProject.create_date
             )
         )
-        return project.first()
+        return project.all()
 
     @staticmethod
     async def get_projects_by_completion_rate(
